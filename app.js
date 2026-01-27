@@ -21,6 +21,9 @@ app.get("/calc/rect/:length/:width", (req, res) => {
   let data = req.params
   res.status(206).send(`The area of a rectangle ${data.length} x ${data.width} is = ${data.length * data.width}`)
 })
-app.get("/movies", (req, res) => {
+app.get("/:type", (req, res) => {
+  let type = req.params.type.toLowerCase()
+  if (type != "movies" && type != "series")
+    res.status(400).send({ "error": "Invalid URI" }) 
   getMovies(res)
 })
